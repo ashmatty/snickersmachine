@@ -1,0 +1,13 @@
+@use '../01_Settings/colours';
+
+body {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: colours.$blue;
+    font-family: 'Snickers', Roboto, 'Helvetica Neue', sans-serif !important;
+  }
+}

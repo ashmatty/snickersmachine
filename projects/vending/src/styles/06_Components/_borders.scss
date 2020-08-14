@@ -1,0 +1,13 @@
+@use '../01_Settings/colours';
+
+.tm_border {
+  border: 5px solid colours.$red;
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  transform: skew(-15deg);
+}
+
+.reverse-skew {
+  display: inline-block;
+  transform: skew(15deg);
+}
