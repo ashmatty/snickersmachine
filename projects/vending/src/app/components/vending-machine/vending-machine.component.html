@@ -1,0 +1,30 @@
+<div class="machine">
+  <div class="inner">
+    <div class="arm">
+      <div class="hand"></div>
+    </div>
+
+    <ng-container *ngFor="let row of rows">
+      <div class="shelf" [attr.data-shelf]="row">
+
+        <ng-container *ngFor="let col of cols">
+          <div class="container" [attr.data-can]="col">
+            <div class="bar"></div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="glass"></div>
+
+  <div class="tray-inner"></div>
+
+  <div class="tray"></div>
+
+  <div class="numberpad"></div>
+</div>
+
+<div class="numpad">
+  <div class="current-input"></div>
+</div>

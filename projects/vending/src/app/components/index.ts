@@ -1,1 +1,3 @@
-export const COMPONENTS = [];
+import { VendingMachineModule } from './vending-machine';
+
+export const COMPONENTS = [VendingMachineModule];
