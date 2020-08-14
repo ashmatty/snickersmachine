@@ -2,5 +2,130 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "vending": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/vending",
+      "sourceRoot": "projects/vending/src",
+      "prefix": "sm",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/vending",
+            "index": "projects/vending/src/index.html",
+            "main": "projects/vending/src/main.ts",
+            "polyfills": "projects/vending/src/polyfills.ts",
+            "tsConfig": "projects/vending/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/vending/src/favicon.ico",
+              "projects/vending/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/vending/src/styles/main.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/vending/src/environments/environment.ts",
+                  "with": "projects/vending/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "vending:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "vending:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "vending:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/vending/src/test.ts",
+            "polyfills": "projects/vending/src/polyfills.ts",
+            "tsConfig": "projects/vending/tsconfig.spec.json",
+            "karmaConfig": "projects/vending/karma.conf.js",
+            "assets": [
+              "projects/vending/src/favicon.ico",
+              "projects/vending/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/vending/src/styles/main.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/vending/tsconfig.app.json",
+              "projects/vending/tsconfig.spec.json",
+              "projects/vending/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/vending/e2e/protractor.conf.js",
+            "devServerTarget": "vending:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "vending:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "vending"
 }
