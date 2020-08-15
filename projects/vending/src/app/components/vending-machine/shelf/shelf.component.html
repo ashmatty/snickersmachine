@@ -1,9 +1,9 @@
 <div class="shelf">
   <div class="container">
-    <div class="bar" [ngClass]="{ 'nobar': rowSupply.left === 0 }"></div>
+    <div class="bar" [ngClass]="{ 'nobar': !rowSupply.left }"></div>
   </div>
 
   <div class="container">
-    <div class="bar" [ngClass]="{ 'nobar': rowSupply.right === 0 }"></div>
+    <div class="bar" [ngClass]="{ 'nobar': !rowSupply.right }"></div>
   </div>
 </div>

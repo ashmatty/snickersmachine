@@ -6,6 +6,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 
+import { RowSupply, VendLocation } from '../../models';
+
 @Component({
   selector: 'sm-vending-machine',
   templateUrl: './vending-machine.component.html',
@@ -15,11 +17,11 @@ export class VendingMachineComponent implements OnChanges, OnInit {
   private _MAX_SUPPLY: number = 10;
   rows: string[] = ['A', 'B', 'C', 'D', 'E'];
   cols: number[] = [1, 2];
-  supply: number = 2;
-  supplyMap: { [location: string]: number }[] = [];
+  supply: number = 0;
+  supplyMap: RowSupply[] = [];
 
   @Input()
-  order: string;
+  order: VendLocation;
 
   @Input()
   resupply: number;
@@ -28,16 +30,25 @@ export class VendingMachineComponent implements OnChanges, OnInit {
     // Zero the supplyMap.
     this.rows.forEach((row) => {
       this.supplyMap.push({
-        [`${row}1`]: 0,
-        [`${row}2`]: 0,
+        row,
+        left: false,
+        right: false,
       });
     });
+
+    this._resupplyStock(2);
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (!!changes.resupply) {
+    if (!!changes.resupply && changes.resupply.currentValue !== '' && changes.resupply.currentValue > 0) {
       this._resupplyStock(changes.resupply.currentValue);
+    } else if (!!changes.order) {
+      this._selectItem(changes.order.currentValue);
     }
+  }
+
+  private _selectItem(location: VendLocation) {
+    
   }
 
   private _resupplyStock(amount: number) {
@@ -56,27 +67,41 @@ export class VendingMachineComponent implements OnChanges, OnInit {
 
     // Update mapping.
     let temp = this.supply;
+
+    // Rebuild map
     this.supplyMap = [];
 
     this.rows.forEach((row) => {
       if (temp >= 2) {
-        this.supplyMap.push({
-          [`${row}1`]: 1,
-          [`${row}2`]: 1,
-        });
+        this.supplyMap = [
+          ...this.supplyMap,
+          {
+            row,
+            left: true,
+            right: true,
+          },
+        ];
+        temp -= 2;
       } else if (temp === 1) {
-        this.supplyMap.push({
-          [`${row}1`]: 1,
-          [`${row}2`]: 0,
-        });
+        this.supplyMap = [
+          ...this.supplyMap,
+          {
+            row,
+            left: true,
+            right: false,
+          },
+        ];
+        temp -= 1;
       } else {
-        this.supplyMap.push({
-          [`${row}1`]: 0,
-          [`${row}2`]: 0,
-        });
+        this.supplyMap = [
+          ...this.supplyMap,
+          {
+            row,
+            left: false,
+            right: false,
+          },
+        ];
       }
     });
-
-    console.log('Supply map udpated: ', this.supplyMap);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { RowSupply } from '../../../models';
 
 @Component({
   selector: 'sm-shelf',
@@ -8,5 +9,5 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 })
 export class ShelfComponent{
   @Input()
-  rowSupply: { left: number, right: number };
+  rowSupply: RowSupply;
 }
