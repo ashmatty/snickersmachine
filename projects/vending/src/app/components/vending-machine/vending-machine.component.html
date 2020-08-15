@@ -4,15 +4,8 @@
       <div class="hand"></div>
     </div>
 
-    <ng-container *ngFor="let row of rows">
-      <div class="shelf" [attr.data-shelf]="row">
-
-        <ng-container *ngFor="let col of cols">
-          <div class="container" [attr.data-can]="col">
-            <div class="bar"></div>
-          </div>
-        </ng-container>
-      </div>
+    <ng-container *ngFor="let row of supplyMap">
+      <sm-shelf [rowSupply]="{ left: 1, right: 1 }"></sm-shelf>
     </ng-container>
   </div>
 
