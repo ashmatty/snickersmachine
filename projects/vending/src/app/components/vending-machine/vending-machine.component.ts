@@ -56,12 +56,12 @@ export class VendingMachineComponent implements OnChanges, OnInit {
       );
     }
 
-    if (amount + this.supply > 10) {
+    if (amount > 10) {
       throw Error(`Total amount of stock will exceed ${this._MAX_SUPPLY}`);
     }
 
     // Update master record.
-    this.supply += amount;
+    this.supply = amount;
 
     // Update mapping.
     let temp = this.supply;

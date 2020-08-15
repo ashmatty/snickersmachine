@@ -7,7 +7,7 @@ export interface SupplyState {
 }
 
 export const initialSupplyState: SupplyState = {
-  supply: 2,
+  supply: 0,
   loaded: false,
   loading: false,
 };

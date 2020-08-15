@@ -7,7 +7,7 @@ import { Observable, of, throwError } from 'rxjs';
 })
 export class SupplyService {
   private _MAX_SUPPLY = 10;
-  private _supply = 2;
+  private _supply = 0;
 
   resupplyMachine(amount: number): Observable<number> {
     if (amount > this._MAX_SUPPLY) {
