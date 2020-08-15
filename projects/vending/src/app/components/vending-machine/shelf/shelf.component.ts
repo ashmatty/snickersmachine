@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'sm-shelf',
@@ -6,11 +6,7 @@ import { Component, Input, OnChanges, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./shelf.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ShelfComponent implements OnChanges{
+export class ShelfComponent{
   @Input()
   rowSupply: { left: number, right: number };
-
-  ngOnChanges(changes) {
-    console.log(changes);
-  }
 }
