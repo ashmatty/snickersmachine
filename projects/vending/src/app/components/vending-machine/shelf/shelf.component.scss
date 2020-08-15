@@ -13,12 +13,14 @@
 // Can
 .container {
   float: left;
-  width: 52px;
   height: 60px;
+  border-color: #333;
   border-width: 0;
   border-bottom-width: 15px;
   border-style: solid;
   position: relative;
+  
+  width: 50%;
 
   .bar {
     position: absolute;
@@ -29,6 +31,9 @@
     border-radius: 3px;
     font-family: 'Pacifico', cursive;
     overflow: hidden;
+    background-image: url(../../../../assets/snickers_bar.png);
+    background-size: 15px auto;
+    background-repeat: no-repeat;
 
     &:before {
       position: absolute;
@@ -52,17 +57,6 @@
       background-color: rgba(255, 255, 255, 0.25);
       border-radius: 3px;
     }
-  }
-}
-
-[data-bar] {
-  border-color: #333;
-  width: 50%;
-
-  .bar{
-    background-image: url(/assets/snickers_bar.png);
-    background-size: 15px auto;
-    background-repeat: no-repeat;
   }
 
   .nobar {
