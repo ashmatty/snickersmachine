@@ -1,0 +1,30 @@
+.pad {
+  &__wrapper {
+    column-gap: 5px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: 0 auto;
+    row-gap: 5px;
+    width: 160px;
+  }
+
+  &__btn {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+  }
+}
+
+.output {
+  &__wrapper {
+    border-bottom: 5px solid #ff0037;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+
+  &__text {
+    font-size: 2.5rem;
+    line-height: 1;
+    text-align: right;
+  }
+}

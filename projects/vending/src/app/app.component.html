@@ -1,2 +1,6 @@
 <sm-banner></sm-banner>
-<sm-vending-machine [resupply]="3"></sm-vending-machine>
+<div class="wrapper">
+  <sm-vending-machine [resupply]="supply$ | async"></sm-vending-machine>
+  <sm-supply-pad></sm-supply-pad>
+</div>
+

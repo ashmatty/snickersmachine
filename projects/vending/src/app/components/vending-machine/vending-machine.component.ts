@@ -35,8 +35,6 @@ export class VendingMachineComponent implements OnChanges, OnInit {
         right: false,
       });
     });
-
-    this._resupplyStock(2);
   }
 
   ngOnChanges(changes: SimpleChanges) {
