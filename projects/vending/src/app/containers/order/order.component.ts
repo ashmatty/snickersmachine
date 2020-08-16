@@ -16,4 +16,8 @@ export class OrderComponent {
   buy() {
     this._store.dispatch(new supplyActions.Order());
   }
+
+  cancel() {
+    console.log('Cancel order pressed');
+  }
 }

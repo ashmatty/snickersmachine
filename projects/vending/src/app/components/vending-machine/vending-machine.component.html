@@ -1,8 +1,6 @@
 <div class="machine">
   <div class="inner">
-    <div class="arm">
-      <div class="hand"></div>
-    </div>
+    <sm-arm></sm-arm>
 
     <ng-container *ngFor="let row of supplyMap">
       <sm-shelf [rowSupply]="row"></sm-shelf>

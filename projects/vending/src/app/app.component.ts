@@ -14,7 +14,7 @@ import { COLUMN, VendLocation } from './models';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  supply$: Observable<number> = this._store.select(supplySelectors.getSupply);
+  supply$: Observable<number>;
 
   testOrder: VendLocation = {
     row: 'B',
@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   constructor(private _store: Store<reducers.VendingMachineState>) {}
 
   ngOnInit() {
+    this.supply$ = this._store.select(supplySelectors.getSupply);
     // Initialise the supply with 2 Snickers bars.
     this._store.dispatch(new supplyActions.Supply(2));
   }

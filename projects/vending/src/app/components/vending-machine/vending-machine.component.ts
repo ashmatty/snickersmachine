@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 
-import { RowSupply, VendLocation } from '../../models';
+import { RowSupply } from '../../models';
 
 @Component({
   selector: 'sm-vending-machine',
@@ -19,9 +19,6 @@ export class VendingMachineComponent implements OnChanges, OnInit {
   cols: number[] = [1, 2];
   supply: number = 0;
   supplyMap: RowSupply[] = [];
-
-  @Input()
-  order: VendLocation;
 
   @Input()
   resupply: number;
@@ -38,15 +35,9 @@ export class VendingMachineComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (!!changes.resupply && changes.resupply.currentValue !== '' && changes.resupply.currentValue > 0) {
+    if (!!changes.resupply && changes.resupply.currentValue !== '' && changes.resupply.currentValue >= 0) {
       this._resupplyStock(changes.resupply.currentValue);
-    } else if (!!changes.order) {
-      this._selectItem(changes.order.currentValue);
     }
-  }
-
-  private _selectItem(location: VendLocation) {
-    
   }
 
   private _resupplyStock(amount: number) {
@@ -58,6 +49,11 @@ export class VendingMachineComponent implements OnChanges, OnInit {
 
     if (amount > 10) {
       throw Error(`Total amount of stock will exceed ${this._MAX_SUPPLY}`);
+    }
+
+    // Run arm animation if required.
+    if (amount < this.supply) {
+      this._selectItem();
     }
 
     // Update master record.
@@ -101,5 +97,24 @@ export class VendingMachineComponent implements OnChanges, OnInit {
         ];
       }
     });
+  }
+
+  private _selectItem() {
+    // Find supplyMap of last location in map with stock.
+    let row = null;
+    let col = null;
+
+    for(let i = this.supplyMap.length - 1; i >= 0; i--) {
+      if (this.supplyMap[i].right && !row && !col) {
+        row = this.supplyMap[i].row;
+        col = 'right';
+      } else if (this.supplyMap[i].left && !row && !col) {
+        row = this.supplyMap[i].row;
+        col = 'left';
+      }
+    }
+    
+    console.log('Row: ', row);
+    console.log('Column: ', col);
   }
 }
