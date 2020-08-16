@@ -14,9 +14,10 @@ export const initialSupplyState: SupplyState = {
 
 export function supplyReducer(
   state = initialSupplyState,
-  action: supplyActions.ResupplyAction
+  action: supplyActions.SupplyAction
 ): SupplyState {
   switch (action.type) {
+    case supplyActions.ORDER:
     case supplyActions.SUPPLY: {
       return {
         ...state,
@@ -24,6 +25,7 @@ export function supplyReducer(
       };
     }
 
+    case supplyActions.ORDER_FAIL:
     case supplyActions.SUPPLY_FAIL: {
       return {
         ...state,
@@ -36,6 +38,17 @@ export function supplyReducer(
       return {
         ...state,
         supply: action.payload,
+        loaded: true,
+        loading: false,
+      };
+    }
+
+    case supplyActions.ORDER_SUCCESS: {
+      const supply = state.supply - 1;
+
+      return {
+        ...state,
+        supply,
         loaded: true,
         loading: false,
       };

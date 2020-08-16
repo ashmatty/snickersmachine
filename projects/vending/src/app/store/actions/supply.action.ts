@@ -19,4 +19,21 @@ export class SupplySuccess implements Action {
   constructor(public payload: number) {}
 }
 
-export type ResupplyAction = Supply | SupplyFail | SupplySuccess;
+export const ORDER = '[Snickers Machine] Order snickers bar';
+export const ORDER_FAIL = '[Snickers Machine] Order snickers bar fail';
+export const ORDER_SUCCESS = '[Snickers Machine] Order snickers bar success';
+
+export class Order implements Action {
+  readonly type = ORDER;
+}
+
+export class OrderFail implements Action {
+  readonly type = ORDER_FAIL;
+  constructor(public payload: any) {}
+}
+
+export class OrderSuccess implements Action {
+  readonly type = ORDER_SUCCESS;
+}
+
+export type SupplyAction = Order | OrderFail | OrderSuccess | Supply | SupplyFail | SupplySuccess;

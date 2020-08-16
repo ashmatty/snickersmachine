@@ -3,3 +3,12 @@
   flex-direction: row;
   justify-content: center;
 }
+
+.supply-order {
+  &__wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}

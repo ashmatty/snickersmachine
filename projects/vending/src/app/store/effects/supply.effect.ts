@@ -25,4 +25,15 @@ export class SupplyEffects {
       );
     })
   );
+
+  @Effect()
+  order$ = this.actions$.pipe(
+    ofType(supplyActions.ORDER),
+    switchMap(() => {
+      return this.supplyService.consumeItem().pipe(
+        map((supply) => new supplyActions.OrderSuccess()),
+        catchError((error) => of(new supplyActions.OrderFail(error)))
+      );
+    })
+  );
 }
