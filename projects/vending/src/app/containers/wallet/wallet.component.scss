@@ -1,0 +1,15 @@
+.wallet {
+  &__wrapper {
+    margin: 0 50px;
+    padding: 10px 30px 30px;
+
+    h2 {
+      text-align: center;
+    }
+  }
+
+  &__coins {
+    display: flex;
+    flex-direction: row;
+  }
+}

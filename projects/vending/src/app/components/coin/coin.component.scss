@@ -1,0 +1,31 @@
+.coin {
+  background-size: 100%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  height: 50px;
+  width:50px;
+}
+
+.twodollars {
+  background-image: url('/assets/coins/Australian_$2_Coin.png');
+}
+
+.onedollar {
+  background-image: url('/assets/coins/Australian_$1_Coin.png');
+}
+
+.fiftycents {
+  background-image: url('/assets/coins/Australian_50c_Coin.png');
+}
+
+.twentycents {
+  background-image: url('/assets/coins/Australian_20c_Coin.png');
+}
+
+.tencents {
+  background-image: url('/assets/coins/Australian_10c_Coin.png');
+}
+
+.fivecents {
+  background-image: url('/assets/coins/Australian_Five_Cents_Rev.png');
+}

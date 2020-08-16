@@ -1,9 +1,16 @@
 <sm-banner></sm-banner>
 <div class="wrapper">
+  <div class="user__wrapper">
+    <sm-wallet></sm-wallet>
+
+    <sm-order></sm-order>
+  </div>
+  
+  
   <sm-vending-machine [resupply]="supply$ | async"></sm-vending-machine>
 
   <div class="supply-order__wrapper">
     <sm-supply-pad></sm-supply-pad>
-    <sm-order></sm-order>
+    <sm-bank [bank]="bank$ | async"></sm-bank>
   </div>
 </div>

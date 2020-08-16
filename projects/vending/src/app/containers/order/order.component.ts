@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import * as bankActions from '../../store/actions/bank.action';
 import * as supplyActions from '../../store/actions/supply.action';
 import * as fromStore from '../../store';
 
@@ -18,6 +19,5 @@ export class OrderComponent {
   }
 
   cancel() {
-    console.log('Cancel order pressed');
-  }
+    this._store.dispatch(new bankActions.CancelDeposit());  }
 }

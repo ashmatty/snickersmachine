@@ -1,0 +1,13 @@
+<div class="wallet__wrapper">
+  <h2>Your Wallet</h2>
+  <p>Click on the coin to add to the vending machine.</p>
+
+  <div class="wallet__coins">
+    <sm-coin coin="twodollars" (click)="depositCoin('2.00')"></sm-coin>
+    <sm-coin coin="onedollar" (click)="depositCoin('1.00')"></sm-coin>
+    <sm-coin coin="fiftycents" (click)="depositCoin('0.50')"></sm-coin>
+    <sm-coin coin="twentycents" (click)="depositCoin('0.20')"></sm-coin>
+    <sm-coin coin="tencents" (click)="depositCoin('0.10')"></sm-coin>
+    <sm-coin coin="fivecents" (click)="depositCoin('0.05')"></sm-coin>
+  </div>
+</div>
