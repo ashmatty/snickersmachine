@@ -33,7 +33,7 @@ export class BankService {
     switch (parsedValue) {
       case 2.0: {
         if (this._bank.supply.twodollars === 25) {
-          return throwError('Coin bank full.');
+          return throwError('Coin bank full. $2 returned.');
         }
 
         deposited = {
@@ -45,7 +45,7 @@ export class BankService {
       }
       case 1.0: {
         if (this._bank.supply.onedollar === 25) {
-          return throwError('Coin bank full.');
+          return throwError('Coin bank full. $1 returned.');
         }
         
         deposited = {
@@ -57,7 +57,7 @@ export class BankService {
       }
       case 0.5: {
         if (this._bank.supply.fiftycents === 25) {
-          return throwError('Coin bank full.');
+          return throwError('Coin bank full. 50c returned.');
         }
         
         deposited = {
@@ -69,7 +69,7 @@ export class BankService {
       }
       case 0.2: {
         if (this._bank.supply.twentycents === 25) {
-          return throwError('Coin bank full.');
+          return throwError('Coin bank full. 20c returned.');
         }
         
         deposited = {
@@ -81,7 +81,7 @@ export class BankService {
       }
       case 0.1: {
         if (this._bank.supply.tencents === 25) {
-          return throwError('Coin bank full.');
+          return throwError('Coin bank full. 10c returned.');
         }
         
         deposited = {
@@ -92,7 +92,7 @@ export class BankService {
         break;
       }
       case 0.05: {
-        return throwError('5c are not accepted by this machine');
+        return throwError('5c are not accepted by this machine. 5c returned.');
         break;
       }
     }

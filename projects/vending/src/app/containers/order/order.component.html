@@ -1,17 +1,17 @@
 <div class="order__wrapper">
   <h3>Order</h3>
-  <p class="order__currency">$1.60&nbsp;-&nbsp;</p>
-  <p class="order__product tm_border">
-    <span class="reverse-skew">Snickers</span>
-  </p>
-  <p>
-    Please place coins into the coin slot on the vending machine before pressing
-    the buy button.
-  </p>
-  <button class="order__btn tm_border" (click)="buy()">
-    <span class="reverse-skew">Dispense</span>
-  </button>
-  <button class="order__btn tm_border" (click)="cancel()">
-    <span class="reverse-skew">Cancel</span>
-  </button>
+  <div class="order__product-wrapper">
+    <p class="order__currency">$1.60&nbsp;-&nbsp;</p>
+    <p class="order__product tm_border">
+      <span class="reverse-skew">Snickers</span>
+    </p>
+  </div>
+  <div class="order__btnWrapper">
+    <button class="order__btn tm_border" (click)="buy()">
+      <span class="reverse-skew">Dispense</span>
+    </button>
+    <button class="order__btn tm_border" (click)="cancel()">
+      <span class="reverse-skew">Cancel</span>
+    </button>
+  </div>
 </div>

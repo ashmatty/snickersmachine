@@ -35,7 +35,20 @@ export class BankEffects {
     ofType(bankActions.CANCEL_DEPOSIT),
     switchMap(() => {
       return this._bankService.cancelOrder().pipe(
-        map((bank) => new bankActions.CancelDepositSuccess(bank)),
+        map((deposited) => {
+          this._messageService.newMessage(`
+          Returned coins: 
+          $2: ${deposited.twodollars},
+          $1: ${deposited.onedollar},
+          50c: ${deposited.fiftycents},
+          20c: ${deposited.twentycents},
+          10c: ${deposited.tencents},
+          5c: ${deposited.fivecents}
+          
+          Total amount: $${deposited.amount}
+          `);
+          return new bankActions.CancelDepositSuccess(deposited)
+        }),
         catchError((error) => {
           this._messageService.newMessage(error);
           return of(new bankActions.CancelDepositFail(error));
