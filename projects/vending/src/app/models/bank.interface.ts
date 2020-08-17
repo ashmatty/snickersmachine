@@ -10,4 +10,5 @@ export interface CoinSet {
   fiftycents: number;
   twentycents: number;
   tencents: number;
+  fivecents?: number;
 }

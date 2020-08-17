@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Bank } from '../../models';
+import { Bank, CoinSet } from '../../models';
 
 export const DEPOSIT = '[Snickers Machine] Deposit coin';
 export const DEPOSIT_FAIL = '[Snickers Machine] Deposit coin fail';
@@ -38,7 +38,7 @@ export class CancelDepositFail implements Action {
 
 export class CancelDepositSuccess implements Action {
   readonly type = CANCEL_DEPOSIT_SUCCESS;
-  constructor(public payload: Bank) {}
+  constructor(public payload: CoinSet) {}
 }
 
 export type BankAction =

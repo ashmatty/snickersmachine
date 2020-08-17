@@ -8,7 +8,14 @@ export interface BankState {
 }
 
 const initialBankData: Bank = {
-  deposited: 0,
+  deposited: {
+    amount: 0,
+    twodollars: 0,
+    onedollar: 0,
+    fiftycents: 0,
+    twentycents: 0,
+    tencents: 0,
+  },
   supply: {
     twodollars: 15,
     onedollar: 11,
@@ -28,13 +35,13 @@ export function bankReducer(
   state = initialBankState,
   action: bankActions.BankAction
 ): BankState {
-  switch(action.type) {
+  switch (action.type) {
     case bankActions.CANCEL_DEPOSIT:
     case bankActions.DEPOSIT: {
       return {
         ...state,
         loading: true,
-      }
+      };
     }
 
     case bankActions.CANCEL_DEPOSIT_FAIL:
@@ -42,10 +49,25 @@ export function bankReducer(
       return {
         ...state,
         loading: false,
-      }
+      };
     }
 
-    case bankActions.CANCEL_DEPOSIT_SUCCESS:
+    case bankActions.CANCEL_DEPOSIT_SUCCESS: {
+      const deposited = action.payload;
+
+      const bank = {
+        ...state.bank,
+        deposited,
+      };
+
+      return {
+        ...state,
+        loaded: true,
+        loading: false,
+        bank,
+      };
+    }
+
     case bankActions.DEPOSIT_SUCCESS: {
       const bank = action.payload;
 
@@ -54,7 +76,7 @@ export function bankReducer(
         loaded: true,
         loading: false,
         bank,
-      }
+      };
     }
   }
 

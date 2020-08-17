@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 
-import { Bank } from '../models';
+import { Bank, CoinSet } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,7 @@ export class BankService {
       fiftycents: 0,
       twentycents: 0,
       tencents: 0,
+      fivecents: 0,
     },
     
     supply: {
@@ -28,24 +29,24 @@ export class BankService {
     },
   };
 
-  depositCoin(value: CoinSet): Observable<Bank> {
+  depositCoin(value: number): Observable<Bank> {
     // const deposit = this.bank.deposited + value;
     // this.bank = {
     //   ...this.bank,
     //   deposited: deposit,
     // };
 
-    
+    console.log(value);
 
     return of(this.bank);
   }
 
-  cancelOrder(): Observable<Bank> {
+  cancelOrder(): Observable<CoinSet> {
     // this.bank = {
     //   ...this.bank,
     //   deposited: 0,
     // };
 
-    return of(this.bank);
+    return of(this.bank.deposited);
   }
 }
