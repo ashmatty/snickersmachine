@@ -7,9 +7,7 @@ import { Bank, CoinSet } from '../models';
   providedIn: 'root',
 })
 export class BankService {
-  private deposited = 0;
-
-  bank: Bank = {
+  private _bank: Bank = {
     deposited: {
       amount: 0,
       twodollars: 0,
@@ -19,7 +17,6 @@ export class BankService {
       tencents: 0,
       fivecents: 0,
     },
-    
     supply: {
       twodollars: 15,
       onedollar: 11,
@@ -30,23 +27,103 @@ export class BankService {
   };
 
   depositCoin(value: number): Observable<Bank> {
-    // const deposit = this.bank.deposited + value;
-    // this.bank = {
-    //   ...this.bank,
-    //   deposited: deposit,
-    // };
+    let deposited = this._bank.deposited;
+    const parsedValue: number = +value;
 
-    console.log(value);
+    switch (parsedValue) {
+      case 2.0: {
+        if (this._bank.supply.twodollars === 25) {
+          return throwError('Coin bank full.');
+        }
 
-    return of(this.bank);
+        deposited = {
+          ...deposited,
+          twodollars: deposited.twodollars + 1,
+          amount: deposited.amount + parsedValue,
+        };
+        break;
+      }
+      case 1.0: {
+        if (this._bank.supply.onedollar === 25) {
+          return throwError('Coin bank full.');
+        }
+        
+        deposited = {
+          ...deposited,
+          onedollar: deposited.onedollar + 1,
+          amount: deposited.amount + parsedValue,
+        };
+        break;
+      }
+      case 0.5: {
+        if (this._bank.supply.fiftycents === 25) {
+          return throwError('Coin bank full.');
+        }
+        
+        deposited = {
+          ...deposited,
+          fiftycents: deposited.fiftycents + 1,
+          amount: deposited.amount + parsedValue,
+        };
+        break;
+      }
+      case 0.2: {
+        if (this._bank.supply.twentycents === 25) {
+          return throwError('Coin bank full.');
+        }
+        
+        deposited = {
+          ...deposited,
+          twentycents: deposited.twentycents + 1,
+          amount: deposited.amount + parsedValue,
+        };
+        break;
+      }
+      case 0.1: {
+        if (this._bank.supply.tencents === 25) {
+          return throwError('Coin bank full.');
+        }
+        
+        deposited = {
+          ...deposited,
+          tencents: deposited.tencents + 1,
+          amount: deposited.amount + parsedValue,
+        };
+        break;
+      }
+      case 0.05: {
+        return throwError('5c are not accepted by this machine');
+        break;
+      }
+    }
+
+    // Rebuild immutable object.
+    this._bank = {
+      ...this._bank,
+      deposited,
+    };
+
+    return of(this._bank);
   }
 
-  cancelOrder(): Observable<CoinSet> {
-    // this.bank = {
-    //   ...this.bank,
-    //   deposited: 0,
-    // };
+  dispense() {}
 
-    return of(this.bank.deposited);
+  cancelOrder(): Observable<CoinSet> {
+    const returned = this._bank.deposited;
+
+    this._bank = {
+      ...this._bank,
+      deposited: {
+        amount: 0,
+        twodollars: 0,
+        onedollar: 0,
+        fiftycents: 0,
+        twentycents: 0,
+        tencents: 0,
+        fivecents: 0,
+      },
+    };
+
+    return of(returned);
   }
 }

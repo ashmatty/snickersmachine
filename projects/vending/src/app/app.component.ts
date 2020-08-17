@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.supply$ = this._store.select(supplySelectors.getSupply);
     this.bank$ = this._store.select(bankSelectors.getBank);
+    
     // Initialise the supply with 2 Snickers bars.
     this._store.dispatch(new supplyActions.Supply(2));
   }

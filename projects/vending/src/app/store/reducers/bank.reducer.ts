@@ -3,6 +3,7 @@ import { Bank } from '../../models/bank.interface';
 
 export interface BankState {
   bank: Bank;
+  errorMsg: string;
   loaded: boolean;
   loading: boolean;
 }
@@ -27,6 +28,7 @@ const initialBankData: Bank = {
 
 export const initialBankState: BankState = {
   bank: initialBankData,
+  errorMsg: null,
   loaded: false,
   loading: false,
 };
@@ -48,12 +50,13 @@ export function bankReducer(
     case bankActions.DEPOSIT_FAIL: {
       return {
         ...state,
+        errorMsg: action.payload,
         loading: false,
       };
     }
 
     case bankActions.CANCEL_DEPOSIT_SUCCESS: {
-      const deposited = action.payload;
+      const deposited = initialBankData.deposited;
 
       const bank = {
         ...state.bank,

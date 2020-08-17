@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import { IMPORTS } from './app.import';
+import { IMPORTS, PROVIDERS } from './app.import';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: IMPORTS,
-  providers: [],
+  providers: PROVIDERS,
   bootstrap: [AppComponent]
 })
 export class AppModule { }

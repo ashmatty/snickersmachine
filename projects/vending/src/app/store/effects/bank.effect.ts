@@ -6,33 +6,40 @@ import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import * as bankActions from '../actions/bank.action';
-import * as bankService from '../../services/bank.service';
+import * as services from '../../services';
 
 @Injectable()
 export class BankEffects {
   constructor(
-    private actions$: Actions,
-    private bankService: bankService.BankService
+    private _actions$: Actions,
+    private _bankService: services.BankService,
+    private _messageService: services.MessageService,
   ) {}
 
   @Effect()
-  depositCoin$ = this.actions$.pipe(
+  depositCoin$ = this._actions$.pipe(
     ofType(bankActions.DEPOSIT),
     switchMap((action: bankActions.Deposit) => {
-      return this.bankService.depositCoin(action.payload).pipe(
+      return this._bankService.depositCoin(action.payload).pipe(
         map((bank) => new bankActions.DepositSuccess(bank)),
-        catchError((error) => of(new bankActions.DepositFail(error)))
+        catchError((error) => {
+          this._messageService.newMessage(error);
+          return of(new bankActions.DepositFail(error));
+        })
       );
     })
   );
 
   @Effect()
-  cancelCoinDeposit$ = this.actions$.pipe(
+  cancelCoinDeposit$ = this._actions$.pipe(
     ofType(bankActions.CANCEL_DEPOSIT),
     switchMap(() => {
-      return this.bankService.cancelOrder().pipe(
+      return this._bankService.cancelOrder().pipe(
         map((bank) => new bankActions.CancelDepositSuccess(bank)),
-        catchError((error) => of(new bankActions.CancelDepositFail(error)))
+        catchError((error) => {
+          this._messageService.newMessage(error);
+          return of(new bankActions.CancelDepositFail(error));
+        })
       );
     })
   );

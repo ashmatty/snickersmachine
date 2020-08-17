@@ -6,33 +6,40 @@ import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import * as supplyActions from '../actions/supply.action';
-import * as supplyService from '../../services/supply.service';
+import * as services from '../../services';
 
 @Injectable()
 export class SupplyEffects {
   constructor(
-    private actions$: Actions,
-    private supplyService: supplyService.SupplyService
+    private _actions$: Actions,
+    private _messageService: services.MessageService,
+    private _supplyService: services.SupplyService
   ) {}
 
   @Effect()
-  resupplyStock$ = this.actions$.pipe(
+  resupplyStock$ = this._actions$.pipe(
     ofType(supplyActions.SUPPLY),
     switchMap((action: supplyActions.Supply) => {
-      return this.supplyService.resupplyMachine(action.payload).pipe(
+      return this._supplyService.resupplyMachine(action.payload).pipe(
         map((supply) => new supplyActions.SupplySuccess(supply)),
-        catchError((error) => of(new supplyActions.SupplyFail(error)))
+        catchError((error) => {
+          this._messageService.newMessage(error);
+          return of(new supplyActions.SupplyFail(error));
+        })
       );
     })
   );
 
   @Effect()
-  order$ = this.actions$.pipe(
+  order$ = this._actions$.pipe(
     ofType(supplyActions.ORDER),
     switchMap(() => {
-      return this.supplyService.consumeItem().pipe(
+      return this._supplyService.consumeItem().pipe(
         map((supply) => new supplyActions.OrderSuccess()),
-        catchError((error) => of(new supplyActions.OrderFail(error)))
+        catchError((error) => {
+          this._messageService.newMessage(error);
+          return of(new supplyActions.OrderFail(error));
+        })
       );
     })
   );

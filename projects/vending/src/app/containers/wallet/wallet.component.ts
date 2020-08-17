@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { CoinSet } from '../../models';
-
 import * as bankActions from '../../store/actions/bank.action';
 import * as reducers from '../../store/reducers';
 
@@ -15,8 +13,6 @@ export class WalletComponent {
   constructor(private _store: Store<reducers.VendingMachineState>) {}
 
   depositCoin(event) {
-    // Calculate CoinSet and dispatch here.
-
     this._store.dispatch(new bankActions.Deposit(event));
   }
 }

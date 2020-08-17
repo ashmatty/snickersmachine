@@ -5,9 +5,11 @@
 
     <sm-order></sm-order>
   </div>
-  
-  
-  <sm-vending-machine [resupply]="supply$ | async"></sm-vending-machine>
+
+  <div>
+    <sm-vending-machine [resupply]="supply$ | async"></sm-vending-machine>
+    <sm-message-box></sm-message-box>
+  </div>
 
   <div class="supply-order__wrapper">
     <sm-supply-pad></sm-supply-pad>

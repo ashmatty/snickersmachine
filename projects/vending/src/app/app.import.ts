@@ -13,8 +13,11 @@ import { environment } from '../environments/environment';
 import { COMPONENTS } from './components';
 import { CONTAINERS } from './containers';
 
-export const metaReducers: MetaReducer<any>[] = !environment.production ? [storeFreeze] : [];
+export const metaReducers: MetaReducer<any>[] = !environment.production
+  ? [storeFreeze]
+  : [];
 
+export * from './services';
 
 export const IMPORTS = [
   BrowserModule,

@@ -1,0 +1,14 @@
+.message-box {
+  &__wrapper {
+    margin-top: 30px;
+
+    h2 {
+      text-align: center;
+    }
+  }
+
+  &__box {
+    height: 150px;
+    overflow: auto;
+  }
+}
