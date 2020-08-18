@@ -39,7 +39,8 @@ export function bankReducer(
 ): BankState {
   switch (action.type) {
     case bankActions.CANCEL_DEPOSIT:
-    case bankActions.DEPOSIT: {
+    case bankActions.DEPOSIT:
+    case bankActions.PURCHASE: {
       return {
         ...state,
         loading: true,
@@ -47,7 +48,8 @@ export function bankReducer(
     }
 
     case bankActions.CANCEL_DEPOSIT_FAIL:
-    case bankActions.DEPOSIT_FAIL: {
+    case bankActions.DEPOSIT_FAIL:
+    case bankActions.PURCHASE: {
       return {
         ...state,
         errorMsg: action.payload,
@@ -71,7 +73,8 @@ export function bankReducer(
       };
     }
 
-    case bankActions.DEPOSIT_SUCCESS: {
+    case bankActions.DEPOSIT_SUCCESS:
+    case bankActions.PURCHASE_SUCCESS: {
       const bank = action.payload;
 
       return {

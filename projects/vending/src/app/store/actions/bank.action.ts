@@ -41,10 +41,32 @@ export class CancelDepositSuccess implements Action {
   constructor(public payload: CoinSet) {}
 }
 
+export const PURCHASE = '[Snickers Machine] Purchase bar';
+export const PURCHASE_FAIL = '[Snickers Machine] Purchase bar fail';
+export const PURCHASE_SUCCESS = '[Snickers Machine] Purchase bar success';
+
+export class Purchase implements Action {
+  readonly type = PURCHASE;
+  constructor(public payload: CoinSet) {}
+}
+
+export class PurchaseFail implements Action {
+  readonly type = PURCHASE_FAIL;
+  constructor(public payload: any) {}
+}
+
+export class PurchaseSuccess implements Action {
+  readonly type = PURCHASE_SUCCESS;
+  constructor(public payload: Bank) {}
+}
+
 export type BankAction =
   | CancelDeposit
   | CancelDepositFail
   | CancelDepositSuccess
   | Deposit
   | DepositFail
-  | DepositSuccess;
+  | DepositSuccess
+  | Purchase
+  | PurchaseFail
+  | PurchaseSuccess;

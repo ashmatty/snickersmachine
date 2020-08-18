@@ -26,6 +26,8 @@ export class BankService {
     },
   };
 
+  private PRODUCT_VALUE = 1.6;
+
   depositCoin(value: number): Observable<Bank> {
     let deposited = this._bank.deposited;
     const parsedValue: number = +value;
@@ -106,7 +108,13 @@ export class BankService {
     return of(this._bank);
   }
 
-  dispense() {}
+  purchase(coins: CoinSet): Observable<Bank> {
+    if (coins.amount === this.PRODUCT_VALUE) {
+
+    }
+
+    return of(this._bank);
+  }
 
   cancelOrder(): Observable<CoinSet> {
     const returned = this._bank.deposited;

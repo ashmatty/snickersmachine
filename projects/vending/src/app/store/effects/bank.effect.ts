@@ -31,6 +31,20 @@ export class BankEffects {
   );
 
   @Effect()
+  purchased$ = this._actions$.pipe(
+    ofType(bankActions.PURCHASE),
+    switchMap((action: bankActions.Purchase) => {
+      return this._bankService.purchase(action.payload).pipe(
+        map((bank) => new bankActions.PurchaseSuccess(bank)),
+        catchError((error) => {
+          this._messageService.newMessage(error);
+          return of(new bankActions.PurchaseFail(error))
+        })
+      )
+    })
+  )
+
+  @Effect()
   cancelCoinDeposit$ = this._actions$.pipe(
     ofType(bankActions.CANCEL_DEPOSIT),
     switchMap(() => {
