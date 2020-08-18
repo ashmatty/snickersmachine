@@ -49,6 +49,11 @@ export class BankEffects {
           
           Total amount returned: $${amount.toFixed(2)}
           `);
+
+          if (bank.outOfStock) {
+            this._messageService.newMessage('Machine is out of stock!');
+          }
+
           return new bankActions.PurchaseSuccess(bank);
         }),
         catchError((error) => {

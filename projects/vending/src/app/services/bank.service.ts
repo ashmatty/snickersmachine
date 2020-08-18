@@ -10,6 +10,7 @@ import { SupplyService } from './supply.service';
 export class BankService {
   private _bank: Bank = {
     transactionValid: false,
+    outOfStock: false,
     deposited: {
       amount: 0,
       twodollars: 0,
@@ -142,6 +143,30 @@ export class BankService {
       this._bank = {
         ...this._bank,
         transactionValid: true,
+      };
+    } else if (this._bank.deposited.amount > this.PRODUCT_VALUE && !this._supplyService.hasStock()) {
+      this._bank = {
+        ...this._bank,
+        returned: {
+          amount: this._bank.deposited.amount,
+          twodollars: this._bank.deposited.twodollars,
+          onedollar: this._bank.deposited.onedollar,
+          fiftycents: this._bank.deposited.fiftycents,
+          twentycents: this._bank.deposited.twentycents,
+          tencents: this._bank.deposited.tencents,
+          fivecents: 0,
+        },
+        deposited: {
+          amount: 0,
+          twodollars: 0,
+          onedollar: 0,
+          fiftycents: 0,
+          twentycents: 0,
+          tencents: 0,
+          fivecents: 0,
+        },
+        transactionValid: false,
+        outOfStock: true,
       };
     } else {
       this._bank = {
@@ -337,6 +362,7 @@ export class BankService {
         fivecents: 0,
       },
       transactionValid: false,
+      outOfStock: false,
     };
   }
 

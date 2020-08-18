@@ -3,6 +3,7 @@ export interface Bank {
   supply: CoinSet;
   returned: CoinSet;
   transactionValid: boolean;
+  outOfStock: boolean;
 }
 
 export interface CoinSet {

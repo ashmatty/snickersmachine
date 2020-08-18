@@ -33,6 +33,7 @@ const initialBankData: Bank = {
     tencents: 0,
   },
   transactionValid: false,
+  outOfStock: false,
 };
 
 export const initialBankState: BankState = {
