@@ -19,11 +19,13 @@ export const getCoinSupply = createSelector(
   (bank: Bank) => bank.supply
 );
 
-export const getDeposited = createSelector(
+export const getDeposited = createSelector(getBank, (bank: Bank) => {
+  return bank.deposited;
+});
+
+export const getTransactionValidity = createSelector(
   getBank,
-  (bank: Bank) => {
-    return bank.deposited;
-  }
+  (bank: Bank) => bank.transactionValid
 );
 
 export const getBankLoaded = createSelector(

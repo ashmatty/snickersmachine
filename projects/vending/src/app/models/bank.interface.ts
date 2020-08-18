@@ -2,6 +2,7 @@ export interface Bank {
   deposited: CoinSet;
   supply: CoinSet;
   returned: CoinSet;
+  transactionValid: boolean;
 }
 
 export interface CoinSet {

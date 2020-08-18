@@ -32,6 +32,7 @@ const initialBankData: Bank = {
     twentycents: 0,
     tencents: 0,
   },
+  transactionValid: false,
 };
 
 export const initialBankState: BankState = {

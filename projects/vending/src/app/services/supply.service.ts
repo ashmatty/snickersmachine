@@ -34,4 +34,8 @@ export class SupplyService {
       );
     }
   }
+
+  hasStock(): boolean {
+    return this._supply > 0;
+  }
 }

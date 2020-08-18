@@ -1,12 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 
 import * as bankActions from '../../store/actions/bank.action';
 import * as supplyActions from '../../store/actions/supply.action';
-import * as bankSelectors from '../../store/selectors/bank.selector';
 import * as fromStore from '../../store';
-import { CoinSet } from '../../models';
 
 @Component({
   selector: 'sm-order',
@@ -19,7 +17,14 @@ export class OrderComponent {
 
   buy() {
     this._store.dispatch(new bankActions.Purchase());
-    this._store.dispatch(new supplyActions.Order());
+    this._store
+      .select(fromStore.getTransactionValidity)
+      .pipe(first())
+      .subscribe((valid) => {
+        if (valid) {
+          this._store.dispatch(new supplyActions.Order());
+        }
+      });
   }
 
   cancel() {

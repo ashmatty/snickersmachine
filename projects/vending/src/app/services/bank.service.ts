@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 
-import { Bank, CoinSet } from '../models';
+import { Bank, } from '../models';
+import { SupplyService } from './supply.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BankService {
   private _bank: Bank = {
+    transactionValid: false,
     deposited: {
       amount: 0,
       twodollars: 0,
@@ -37,9 +39,17 @@ export class BankService {
 
   private PRODUCT_VALUE = 1.6;
 
+  constructor(private _supplyService: SupplyService) {}
+
   depositCoin(value: number): Observable<Bank> {
     let deposited = this._bank.deposited;
     const parsedValue: number = +value;
+
+    // Ensure transaction is reset when depositing coins.
+    this._bank = {
+      ...this._bank,
+      transactionValid: false,
+    };
 
     switch (parsedValue) {
       case 2.0: {
@@ -62,7 +72,7 @@ export class BankService {
         deposited = {
           ...deposited,
           onedollar: deposited.onedollar + 1,
-          amount: deposited.amount + parsedValue,
+          amount: this._addDecimals(deposited.amount, parsedValue),
         };
         break;
       }
@@ -74,7 +84,7 @@ export class BankService {
         deposited = {
           ...deposited,
           fiftycents: deposited.fiftycents + 1,
-          amount: deposited.amount + parsedValue,
+          amount: this._addDecimals(deposited.amount, parsedValue),
         };
         break;
       }
@@ -86,7 +96,7 @@ export class BankService {
         deposited = {
           ...deposited,
           twentycents: deposited.twentycents + 1,
-          amount: deposited.amount + parsedValue,
+          amount: this._addDecimals(deposited.amount, parsedValue),
         };
         break;
       }
@@ -98,7 +108,7 @@ export class BankService {
         deposited = {
           ...deposited,
           tencents: deposited.tencents + 1,
-          amount: deposited.amount + parsedValue,
+          amount: this._addDecimals(deposited.amount, parsedValue),
         };
         break;
       }
@@ -118,12 +128,21 @@ export class BankService {
   }
 
   purchase(): Observable<Bank> {
-    if (this._bank.deposited.amount === this.PRODUCT_VALUE) {
+    if (this._bank.deposited.amount === this.PRODUCT_VALUE && this._supplyService.hasStock()) {
       this._updateSupply();
-    } else if (this._bank.deposited.amount > this.PRODUCT_VALUE) {
+      this._bank = {
+        ...this._bank,
+        transactionValid: true,
+      };
+    } else if (this._bank.deposited.amount > this.PRODUCT_VALUE && this._supplyService.hasStock()) {
       const deposited = this._bank.deposited.amount;
       this._updateSupply();
       this._calculateChange(deposited);
+
+      this._bank = {
+        ...this._bank,
+        transactionValid: true,
+      };
     } else {
       this._bank = {
         ...this._bank,
@@ -145,6 +164,7 @@ export class BankService {
           tencents: 0,
           fivecents: 0,
         },
+        transactionValid: false,
       };
     }
 
@@ -173,7 +193,7 @@ export class BankService {
 
   private _calculateChange(deposited: number) {
     const originalState = this._bank;
-    let changeOwed = deposited - this.PRODUCT_VALUE;
+    let changeOwed = ((deposited * 10) - (this.PRODUCT_VALUE * 10)) / 10;
 
     // Save amount owed.
     this._bank = {
@@ -198,7 +218,7 @@ export class BankService {
         },
       };
 
-      changeOwed = (changeOwed * 10 - twodollars * 2 * 10) / 10;
+      changeOwed = this._addDecimals(changeOwed, twodollars);
     }
 
     const onedollar = Math.floor(changeOwed);
@@ -215,7 +235,7 @@ export class BankService {
         },
       };
 
-      changeOwed = (changeOwed * 10 - onedollar * 1 * 10) / 10;
+      changeOwed = this._addDecimals(changeOwed, onedollar);
     }
 
     const fiftycents = Math.floor(changeOwed / 0.5);
@@ -232,7 +252,7 @@ export class BankService {
         },
       };
 
-      changeOwed = (changeOwed * 10 - fiftycents * 0.5 * 10) / 10;
+      changeOwed = this._addDecimals(changeOwed, fiftycents);
     }
 
     const twentycents = Math.floor(changeOwed / 0.2);
@@ -249,7 +269,7 @@ export class BankService {
         },
       };
 
-      changeOwed = (changeOwed * 10 - twentycents * 0.2 * 10) / 10;
+      changeOwed = this._addDecimals(changeOwed, twentycents);
     }
 
     const tencents = Math.floor(changeOwed / 0.1);
@@ -266,7 +286,7 @@ export class BankService {
         },
       };
 
-      changeOwed = (changeOwed * 10 - tencents * 0.1 * 10) / 10;
+      changeOwed = this._addDecimals(changeOwed, tencents);
     }
 
     if (changeOwed > 0) {
@@ -316,6 +336,16 @@ export class BankService {
         tencents: 0,
         fivecents: 0,
       },
+      transactionValid: false,
     };
+  }
+
+  private _addDecimals(first: number, second: number): number {
+    // Allow for inaccurate numbers in JavaScript.
+    first = first * 10;
+    second = second * 10;
+    const result = first + second;
+
+    return result / 10;
   }
 }
