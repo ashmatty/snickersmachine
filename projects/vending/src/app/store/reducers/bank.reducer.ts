@@ -24,6 +24,14 @@ const initialBankData: Bank = {
     twentycents: 25,
     tencents: 8,
   },
+  returned: {
+    amount: 0,
+    twodollars: 0,
+    onedollar: 0,
+    fiftycents: 0,
+    twentycents: 0,
+    tencents: 0,
+  },
 };
 
 export const initialBankState: BankState = {
@@ -52,7 +60,6 @@ export function bankReducer(
     case bankActions.PURCHASE: {
       return {
         ...state,
-        errorMsg: action.payload,
         loading: false,
       };
     }

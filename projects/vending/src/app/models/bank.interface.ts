@@ -1,6 +1,7 @@
 export interface Bank {
   deposited: CoinSet;
   supply: CoinSet;
+  returned: CoinSet;
 }
 
 export interface CoinSet {

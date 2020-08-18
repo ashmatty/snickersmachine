@@ -38,7 +38,7 @@ export class CancelDepositFail implements Action {
 
 export class CancelDepositSuccess implements Action {
   readonly type = CANCEL_DEPOSIT_SUCCESS;
-  constructor(public payload: CoinSet) {}
+  constructor(public payload: Bank) {}
 }
 
 export const PURCHASE = '[Snickers Machine] Purchase bar';
@@ -47,7 +47,6 @@ export const PURCHASE_SUCCESS = '[Snickers Machine] Purchase bar success';
 
 export class Purchase implements Action {
   readonly type = PURCHASE;
-  constructor(public payload: CoinSet) {}
 }
 
 export class PurchaseFail implements Action {

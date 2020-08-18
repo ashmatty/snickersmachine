@@ -21,7 +21,9 @@ export const getCoinSupply = createSelector(
 
 export const getDeposited = createSelector(
   getBank,
-  (bank: Bank) => bank.deposited
+  (bank: Bank) => {
+    return bank.deposited;
+  }
 );
 
 export const getBankLoaded = createSelector(

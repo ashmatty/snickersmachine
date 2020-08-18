@@ -2,7 +2,7 @@
   <h2>Bank</h2>
 
   <h3>Deposited coins</h3>
-  <p class="bank__deposited">{{ bank.deposited.amount | currency }}</p>
+  <p class="bank__deposited">{{ bank.deposited?.amount | currency }}</p>
 
   <hr />
 
@@ -10,23 +10,23 @@
   <div class="bank__coins">
     <div class="bank__coin-wrapper">
       <sm-coin coin="twodollars"></sm-coin>
-      <p class="bank__supply">{{ bank.supply.twodollars }}</p>
+      <p class="bank__supply">{{ bank.supply?.twodollars }}</p>
     </div>
     <div class="bank__coin-wrapper">
       <sm-coin coin="onedollar"></sm-coin>
-      <p class="bank__supply">{{ bank.supply.onedollar }}</p>
+      <p class="bank__supply">{{ bank.supply?.onedollar }}</p>
     </div>
     <div class="bank__coin-wrapper">
       <sm-coin coin="fiftycents"></sm-coin>
-      <p class="bank__supply">{{ bank.supply.fiftycents }}</p>
+      <p class="bank__supply">{{ bank.supply?.fiftycents }}</p>
     </div>
     <div class="bank__coin-wrapper">
       <sm-coin coin="twentycents"></sm-coin>
-      <p class="bank__supply">{{ bank.supply.twentycents }}</p>
+      <p class="bank__supply">{{ bank.supply?.twentycents }}</p>
     </div>
     <div class="bank__coin-wrapper">
       <sm-coin coin="tencents"></sm-coin>
-      <p class="bank__supply">{{ bank.supply.tencents }}</p>
+      <p class="bank__supply">{{ bank.supply?.tencents }}</p>
     </div>
   </div>
 </div>

@@ -18,12 +18,8 @@ export class OrderComponent {
   constructor(private _store: Store<fromStore.VendingMachineState>) {}
 
   buy() {
-    this._store
-      .select(bankSelectors.getDeposited)
-      .subscribe((deposited: CoinSet) => {
-        this._store.dispatch(new bankActions.Purchase(deposited));
-        this._store.dispatch(new supplyActions.Order());
-      });
+    this._store.dispatch(new bankActions.Purchase());
+    this._store.dispatch(new supplyActions.Order());
   }
 
   cancel() {
