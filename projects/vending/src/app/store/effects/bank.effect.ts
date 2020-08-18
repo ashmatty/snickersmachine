@@ -47,7 +47,7 @@ export class BankEffects {
           10c: ${bank.returned.tencents},
           5c: ${bank.returned.fivecents}
           
-          Total amount returned: $${amount}
+          Total amount returned: $${amount.toFixed(2)}
           `);
           return new bankActions.PurchaseSuccess(bank);
         }),
@@ -74,7 +74,7 @@ export class BankEffects {
           10c: ${bank.returned.tencents},
           5c: ${bank.returned.fivecents}
           
-          Total amount returned: $${bank.returned.amount}
+          Total amount returned: $${bank.returned.amount.toFixed(2)}
           `);
           return new bankActions.CancelDepositSuccess(bank);
         }),
@@ -85,4 +85,8 @@ export class BankEffects {
       );
     })
   );
+
+  private _padNumber(amount: number) {
+    
+  }
 }

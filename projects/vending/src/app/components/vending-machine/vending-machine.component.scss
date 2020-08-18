@@ -35,6 +35,22 @@ $blue: #003399;
     top: 152px;
     right: 12px;
   }
+
+  &__warning {
+    animation: warning-light 3s infinite;
+    color: #ff0037;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    text-align: center;
+    text-shadow: 0 0 10px red;
+  }
+}
+
+@keyframes warning-light {
+  0% {text-shadow: 0 0 10px red;}
+  25% {text-shadow: 0 0 10px red;}
+  50% {text-shadow: 0 0 10px white;}
+  75% {text-shadow: 0 0 10px red;}
 }
 
 .glass {
@@ -122,50 +138,6 @@ $blue: #003399;
   left: 20px;
   bottom: 20px;
   border-radius: 5px;
-
-  // Can
-  .container {
-    position: absolute;
-    bottom: -7px;
-    left: 45%;
-    border-color: transparent !important;
-    z-index: 10;
-    animation: shake-can 0.25s 0.5s infinite;
-    transform-origin: center -100px;
-
-    .can {
-      transform: rotate(-20deg) scale(0.5, 0.5);
-      opacity: 0;
-      animation: show-can 0.5s 0.5s forwards;
-    }
-
-    &.hide {
-      transition: all 0.5s;
-      opacity: 0;
-    }
-  }
-}
-
-@keyframes shake-can {
-  0%,
-  100% {
-    transform: rotate(0);
-  }
-
-  50% {
-    transform: rotate(10deg);
-  }
-}
-
-@keyframes show-can {
-  0% {
-    transform: rotate(-20deg) scale(0.5, 0.5);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0) translateY(-100px) rotate(70deg) scale(10, 10);
-    opacity: 1;
-  }
 }
 
 .tray {

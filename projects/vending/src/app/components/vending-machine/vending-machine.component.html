@@ -13,3 +13,7 @@
 
   <div class="tray"></div>
 </div>
+
+<ng-container *ngIf="resupply <= 2">
+  <p class="machine__warning">Low stock!</p>
+</ng-container>
